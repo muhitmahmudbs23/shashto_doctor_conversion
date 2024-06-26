@@ -7,7 +7,7 @@ import 'client.dart';
 class API {
 
   
-
+  static late Dio dioClient;
   static const String _login = 'users/login';
   static const String _sendOtp = 'users/otp';
   static const String _verifyOtp = 'users/otp-verify';
