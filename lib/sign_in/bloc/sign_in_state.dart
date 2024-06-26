@@ -8,7 +8,7 @@ class SignInInitial extends SignInState {}
 class SignInLoading extends SignInState {}
 
 class SignInSuccess extends SignInState {
-  final Doctor user;
+  final DoctorInfo user;
 
   SignInSuccess({required this.user});
 }

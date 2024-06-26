@@ -47,7 +47,7 @@ import 'package:flutter/material.dart';
 import 'package:shashto_doctor_conversion/sign_in/modals/user.dart';
 
 class HomePage extends StatelessWidget {
-  final Doctor user;
+  final DoctorInfo user;
   const HomePage({super.key, required this.user});
 
   @override

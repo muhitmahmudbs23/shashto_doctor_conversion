@@ -1,28 +1,16 @@
-import 'package:shashto_doctor_conversion/api/API.dart';
+import 'package:shashto_doctor_conversion/service/api/api.dart';
 
 class ForgotPasswordRepository {
-  
-  ForgotPasswordRepository();
-
-  Future<Map<String, dynamic>> sendOtp(String userId) async {
-    try {
-      var response = await API.sendOtp(userId);
-      return response;
-    } catch (e) {
-      return {'error': e.toString()};
-    }
+  Future<Map<String, dynamic>> sendOtp(String userId) {
+    return API.sendOtp(userId);
   }
 
-  Future <Map<String, dynamic>> changePassword(String newPassword, String otp, String userId) async {
-    try {
-      var response = await API.changePassword(otp: otp, newPassword: newPassword, userId: userId);
-      return response;
-    } catch (e) {
-      return {'error': e.toString()};
-    }
+  Future<Map<String, dynamic>> verifyOtp({
+    required String otp,
+    required String newPassword,
+    required String username,
+  }) {
+    return API.verifyOtp(
+        otp: otp, newPassword: newPassword, username: username);
   }
-
-  // Future<String> verifyOtp(String userId, String otp, String newPassword) {
-  //   // Implement API call
-  // }
 }

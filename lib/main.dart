@@ -12,9 +12,9 @@ void main() {
     MultiBlocProvider(
       providers: [
         BlocProvider<SignInBloc>(
-          create: (context) => SignInBloc(authenticationRepository: AuthenticationRepository()),
+          create: (context) => SignInBloc(authenticationRepository: UserRepository()),
         ),
-        BlocProvider(create: (context) => ForgotPasswordBloc( ForgotPasswordRepository())),
+        BlocProvider(create: (context) => ForgotPasswordBloc(repository: ForgotPasswordRepository())),
       ],
       child: const MyApp(),
     ),

@@ -1,4 +1,4 @@
-import 'package:shashto_doctor_conversion/api/API.dart';
+import 'package:shashto_doctor_conversion/service/api/api.dart';
 import 'package:shashto_doctor_conversion/home/modals/appointments.dart';
 import 'package:shashto_doctor_conversion/home/modals/user_profile.dart';
 

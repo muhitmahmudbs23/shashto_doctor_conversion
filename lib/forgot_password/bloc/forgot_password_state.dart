@@ -1,28 +1,20 @@
 part of 'forgot_password_bloc.dart';
 
+// forgot_password_state.dart
 abstract class ForgotPasswordState {}
 
-class ForgotPasswordInitial extends ForgotPasswordState {}
+class InitialState extends ForgotPasswordState {}
+
+class OTPSentState extends ForgotPasswordState {}
+
+class PasswordChangedState extends ForgotPasswordState {}
 
 class LoadingState extends ForgotPasswordState {}
 
-class OtpSentSuccessState extends ForgotPasswordState {
-  
-  final int code;
-
-  OtpSentSuccessState(this.code);
-}
-
-class OtpVerifySuccessState extends ForgotPasswordState {
+class ErrorState extends ForgotPasswordState {
   final String message;
 
-  OtpVerifySuccessState(this.message);
-}
-
-class ErrorState extends ForgotPasswordState {
-  final String error;
-
-  ErrorState(this.error);
+  ErrorState(this.message);
 }
 
 class PasswordStrengthState extends ForgotPasswordState {
@@ -30,3 +22,4 @@ class PasswordStrengthState extends ForgotPasswordState {
 
   PasswordStrengthState(this.strength);
 }
+

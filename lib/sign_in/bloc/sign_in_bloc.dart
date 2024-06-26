@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:shashto_doctor_conversion/service/local_storage/cache_service.dart';
 import 'package:shashto_doctor_conversion/sign_in/modals/user.dart';
 import 'package:shashto_doctor_conversion/sign_in/repo/sign_in_repo.dart';
 
@@ -9,20 +10,21 @@ part 'sign_in_event.dart';
 part 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  final AuthenticationRepository authenticationRepository;
+  final UserRepository authenticationRepository;
 
   SignInBloc({required this.authenticationRepository})
       : super(SignInInitial()) {
     on<SignInRequested>((event, emit) async {
       emit(SignInLoading());
       try {
-        var data = await authenticationRepository.signIn(
+        var data = await authenticationRepository.login(
             event.username, event.password);
 
         if (data['error'] == null) {
           log(data.toString());
-
-          emit(SignInSuccess(user: Doctor.fromJson(data['doctor_info'])));
+          final response = LoginResponse.fromJson(data);
+          CacheService.instance.storeBearerToken(response.token);
+          emit(SignInSuccess(user: response.doctorInfo));
         } else {
           emit(SignInFailure(error: 'Invalid username or password'));
         }

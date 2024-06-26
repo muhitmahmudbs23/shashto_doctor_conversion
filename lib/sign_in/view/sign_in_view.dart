@@ -95,7 +95,7 @@ class SignInPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ForgotPasswordPage()),
+                                                 ForgotPasswordScreen()),
                                       );
                                     },
                                     child: const Text('Forgot your password?',
