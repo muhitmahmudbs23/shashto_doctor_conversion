@@ -13,18 +13,16 @@ class UserRepository {
     await CacheService.instance.storeBearerToken(response['token']);
     
     // Call dependent methods upon successful login
-    await _getTagList();
+    await getTagList();
     log("passed _getTagList");
-    await _getVitalList();
+    await getVitalList();
     log("passed _getVitalList");
-    await _getDoctorWorkInfo(response);
+    await getDoctorWorkInfo(response);
     log("passed _getDoctorWorkInfo");
-    await _getRatingTagList(response);
+    await getRatingTagList(response);
     log("passed _getRatingTagList");
     //await _updateFcmToken(response);
     //log("passed _updateFcmToken");
-    await _fetchPersonalInfoAndAppointmentList(response);
-    log("passed _fetchPersonalInfoAndAppointmentList");
     return response;
   }
 
@@ -92,7 +90,7 @@ class UserRepository {
     return response;
   }
 
-  Future<Map<String, dynamic>> getRatingTagList(Map<String, Object> query) async {
+  Future<Map<String, dynamic>> getRatingTagList(Map<String, dynamic> query) async {
     final response = await API.getRatingTagList(query);
     // Store rating tag list in the cache
     await CacheService.instance.storeRatingTagList(response);
@@ -115,7 +113,7 @@ class UserRepository {
     return await API.putShare(shareId, data);
   }
 
-  Future<Map<String, dynamic>> getDoctorWorkInfo(Map<String, Object> query) async {
+  Future<Map<String, dynamic>> getDoctorWorkInfo(Map<String, dynamic> query) async {
     final response = await API.getDoctorWorkInfo(query);
     // Store doctor work info in the cache
     await CacheService.instance.storeDoctorWorkInfo(response);
@@ -152,45 +150,6 @@ class UserRepository {
 
   Future<Map<String, dynamic>> requestSubmitDoc(Map<String, dynamic> data, int contactId) async {
     return await API.requestSubmitDoc(data, contactId);
-  }
-
-  // Helper methods
-  Future<void> _getTagList() async {
-    final response = await API.getTagList();
-    await CacheService.instance.storeTagList(response);
-  }
-
-  Future<void> _getVitalList() async {
-    final response = await API.getVitalList();
-    await CacheService.instance.storeVitalList(response);
-  }
-
-  Future<void> _getDoctorWorkInfo(Map<String, dynamic> loginResponse) async {
-    final contactId = loginResponse['contacts']['id'];
-    log('Contact ID: $contactId');
-    final query = <String, dynamic>{'contact_id': contactId};
-    log('Query: $query');
-    final response = await API.getDoctorWorkInfo(query);
-    log('Response: $response');
-    await CacheService.instance.storeDoctorWorkInfo(response);
-  }
-
-  Future<void> _getRatingTagList(Map<String, dynamic> loginResponse) async {
-    final contactId = loginResponse['contacts']['id'];
-    final query = {'contact_id': contactId};
-    final response = await API.getRatingTagList(query);
-    await CacheService.instance.storeRatingTagList(response);
-  }
-
-  Future<void> _updateFcmToken(Map<String, dynamic> loginResponse) async {
-    final token = await CacheService.instance.retrieveBearerToken();
-    final contactDeviceId = loginResponse['contactsDevice']['id'];
-    const fcmToken = 'YOUR_FCM_TOKEN';  // TODO: Replace with actual FCM token retrieval using Firebase
-    final data = {
-      'contact_id': loginResponse['contacts']['id'],
-      'fcm_token': fcmToken,
-    };
-    await API.updateDeviceToken(contactDeviceId, data);
   }
 
   Future<void> _fetchPersonalInfoAndAppointmentList(Map<String, dynamic> loginResponse) async {

@@ -23,7 +23,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         if (data['error'] == null) {
           log(data.toString());
           final response = LoginResponse.fromJson(data);
-          CacheService.instance.storeBearerToken(response.token);
+          
           emit(SignInSuccess(user: response.doctorInfo));
         } else {
           emit(SignInFailure(error: 'Invalid username or password'));

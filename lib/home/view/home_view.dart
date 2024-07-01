@@ -46,6 +46,8 @@
 import 'package:flutter/material.dart';
 import 'package:shashto_doctor_conversion/sign_in/modals/user.dart';
 
+import '../../profile/view/profile_screen.dart';
+
 class HomePage extends StatelessWidget {
   final DoctorInfo user;
   const HomePage({super.key, required this.user});
@@ -57,7 +59,12 @@ class HomePage extends StatelessWidget {
         title: const Text('Home'),
       ),
       body: Center(
-        child: Text('Welcome ${user.name}!'),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
+          },
+          child: const Text('Go to Profile'),
+        )
       ),
     );
   }
