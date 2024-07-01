@@ -1,165 +1,215 @@
 import 'package:floor/floor.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'contacts.g.dart';
+
+@JsonSerializable()
 @Entity(tableName: 'contacts')
 class Contacts {
   @primaryKey
   @ColumnInfo(name: 'id')
+  @JsonKey(name: 'id')
   final int id;
 
+  @JsonKey(name: 'first_name')
   @ColumnInfo(name: 'first_name')
-  final String firstName;
+  final String? firstName;
 
+  @JsonKey(name: 'last_name')
   @ColumnInfo(name: 'last_name')
-  final String lastName;
+  final String? lastName;
 
+  @JsonKey(name: 'date_of_birth')
   @ColumnInfo(name: 'date_of_birth')
-  final String dateOfBirth;
+  final String? dateOfBirth;
 
+  @JsonKey(name: 'country_of_birth')
   @ColumnInfo(name: 'country_of_birth')
-  final String countryOfBirth;
+  final String? countryOfBirth;
 
+  @JsonKey(name: 'estimated_age')
   @ColumnInfo(name: 'estimated_age')
-  final String estimatedAge;
+  final String? estimatedAge;
 
+  @JsonKey(name: 'gender')
   @ColumnInfo(name: 'gender')
-  final String gender;
+  final String? gender;
 
+  @JsonKey(name: 'status')
   @ColumnInfo(name: 'status')
-  final bool status;
+  final bool? status;
 
+  @JsonKey(name: 'nationality')
   @ColumnInfo(name: 'nationality')
-  final String nationality;
+  final String? nationality;
 
+  @JsonKey(name: 'national_id')
   @ColumnInfo(name: 'national_id')
-  final String nationalId;
+  final String? nationalId;
 
+  @JsonKey(name: 'nid_photo_one')
   @ColumnInfo(name: 'nid_photo_one')
-  final String nidPhotoOne;
+  final String? nidPhotoOne;
 
+  @JsonKey(name: 'nid_photo_two')
   @ColumnInfo(name: 'nid_photo_two')
-  final String nidPhotoTwo;
+  final String? nidPhotoTwo;
 
+  @JsonKey(name: 'have_medical_insurance')
   @ColumnInfo(name: 'have_medical_insurance')
-  final bool haveMedicalInsurance;
+  final bool? haveMedicalInsurance;
 
+  @JsonKey(name: 'no_of_children')
   @ColumnInfo(name: 'no_of_children')
-  final int noOfChildren;
+  final int? noOfChildren;
 
+  @JsonKey(name: 'medical_insurance_name')
   @ColumnInfo(name: 'medical_insurance_name')
-  final String medicalInsuranceName;
+  final String? medicalInsuranceName;
 
+  @JsonKey(name: 'medical_insurance_id')
   @ColumnInfo(name: 'medical_insurance_id')
-  final String medicalInsuranceId;
+  final String? medicalInsuranceId;
 
+  @JsonKey(name: 'mid_photo_one')
   @ColumnInfo(name: 'mid_photo_one')
-  final String midPhotoOne;
+  final String? midPhotoOne;
 
+  @JsonKey(name: 'mid_photo_two')
   @ColumnInfo(name: 'mid_photo_two')
-  final String midPhotoTwo;
+  final String? midPhotoTwo;
 
+  @JsonKey(name: 'ethnicity')
   @ColumnInfo(name: 'ethnicity')
-  final String ethnicity;
+  final String? ethnicity;
 
+  @JsonKey(name: 'religion')
   @ColumnInfo(name: 'religion')
-  final String religion;
+  final String? religion;
 
+  @JsonKey(name: 'occupation')
   @ColumnInfo(name: 'occupation')
-  final String occupation;
+  final String? occupation;
 
+  @JsonKey(name: 'education_level')
   @ColumnInfo(name: 'education_level')
-  final String educationLevel;
+  final String? educationLevel;
 
+  @JsonKey(name: 'merital_status')
   @ColumnInfo(name: 'merital_status')
-  final String meritalStatus;
+  final String? meritalStatus;
 
+  @JsonKey(name: 'have_children')
   @ColumnInfo(name: 'have_children')
-  final bool haveChildren;
+  final bool? haveChildren;
 
+  @JsonKey(name: 'blood_group')
   @ColumnInfo(name: 'blood_group')
-  final String bloodGroup;
+  final String? bloodGroup;
 
+  @JsonKey(name: 'email')
   @ColumnInfo(name: 'email')
-  final String email;
+  final String? email;
 
+  @JsonKey(name: 'username')
   @ColumnInfo(name: 'username')
-  final String username;
+  final String? username;
 
+  @JsonKey(name: 'phone')
   @ColumnInfo(name: 'phone')
-  final String phone;
+  final String? phone;
 
+  @JsonKey(name: 'height')
   @ColumnInfo(name: 'height')
-  final String height;
+  final String? height;
 
+  @JsonKey(name: 'weight')
   @ColumnInfo(name: 'weight')
-  final String weight;
+  final String? weight;
 
+  @JsonKey(name: 'bmi')
   @ColumnInfo(name: 'bmi')
-  final String bmi;
+  final String? bmi;
 
+  @JsonKey(name: 'alergies')
   @ColumnInfo(name: 'alergies')
-  final String alergies;
+  final String? alergies;
 
+  @JsonKey(name: 'profile_photo')
   @ColumnInfo(name: 'profile_photo')
-  final String profilePhoto;
+  final String? profilePhoto;
 
+  @JsonKey(name: 'is_findable')
   @ColumnInfo(name: 'is_findable')
-  final bool isFindable;
+  final bool? isFindable;
 
+  @JsonKey(name: 'created_date')
   @ColumnInfo(name: 'created_date')
-  final String createdDate;
+  final String? createdDate;
 
+  @JsonKey(name: 'created_uid')
   @ColumnInfo(name: 'created_uid')
-  final int createdUid;
+  final int? createdUid;
 
+  @JsonKey(name: 'created_by')
+  final String? createdBy;
+
+  @JsonKey(name: 'updated_by')
+  final String? updatedBy;
+
+  @JsonKey(name: 'updated_date')
   @ColumnInfo(name: 'updated_date')
-  final String updatedDate;
+  final String? updatedDate;
 
+  @JsonKey(name: 'updated_uid')
   @ColumnInfo(name: 'updated_uid')
-  final int updatedUid;
+  final int? updatedUid;
 
   Contacts({
     required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.dateOfBirth,
-    required this.countryOfBirth,
-    required this.estimatedAge,
-    required this.gender,
-    required this.status,
-    required this.nationality,
-    required this.nationalId,
-    required this.nidPhotoOne,
-    required this.nidPhotoTwo,
-    required this.haveMedicalInsurance,
-    required this.noOfChildren,
-    required this.medicalInsuranceName,
-    required this.medicalInsuranceId,
-    required this.midPhotoOne,
-    required this.midPhotoTwo,
-    required this.ethnicity,
-    required this.religion,
-    required this.occupation,
-    required this.educationLevel,
-    required this.meritalStatus,
-    required this.haveChildren,
-    required this.bloodGroup,
-    required this.email,
-    required this.username,
-    required this.phone,
-    required this.height,
-    required this.weight,
-    required this.bmi,
-    required this.alergies,
-    required this.profilePhoto,
-    required this.isFindable,
-    required this.createdDate,
-    required this.createdUid,
-    required this.updatedDate,
-    required this.updatedUid,
+    this.firstName,
+    this.lastName,
+    this.dateOfBirth,
+    this.countryOfBirth,
+    this.estimatedAge,
+    this.gender,
+    this.status,
+    this.nationality,
+    this.nationalId,
+    this.nidPhotoOne,
+    this.nidPhotoTwo,
+    this.haveMedicalInsurance,
+    this.noOfChildren,
+    this.medicalInsuranceName,
+    this.medicalInsuranceId,
+    this.midPhotoOne,
+    this.midPhotoTwo,
+    this.ethnicity,
+    this.religion,
+    this.occupation,
+    this.educationLevel,
+    this.meritalStatus,
+    this.haveChildren,
+    this.bloodGroup,
+    this.email,
+    this.username,
+    this.phone,
+    this.height,
+    this.weight,
+    this.bmi,
+    this.alergies,
+    this.profilePhoto,
+    this.isFindable,
+    this.createdDate,
+    this.createdUid,
+    this.updatedDate,
+    this.updatedUid,
+    this.createdBy,
+    this.updatedBy
   });
 
-  @override
-  String toString() {
-    return 'Contacts{id: $id, firstName: $firstName, lastName: $lastName, dateOfBirth: $dateOfBirth, countryOfBirth: $countryOfBirth, estimatedAge: $estimatedAge, gender: $gender, status: $status, nationality: $nationality, nationalId: $nationalId, nidPhotoOne: $nidPhotoOne, nidPhotoTwo: $nidPhotoTwo, haveMedicalInsurance: $haveMedicalInsurance, noOfChildren: $noOfChildren, medicalInsuranceName: $medicalInsuranceName, medicalInsuranceId: $medicalInsuranceId, midPhotoOne: $midPhotoOne, midPhotoTwo: $midPhotoTwo, ethnicity: $ethnicity, religion: $religion, occupation: $occupation, educationLevel: $educationLevel, meritalStatus: $meritalStatus, haveChildren: $haveChildren, bloodGroup: $bloodGroup, email: $email, username: $username, phone: $phone, height: $height, weight: $weight, bmi: $bmi, alergies: $alergies, profilePhoto: $profilePhoto, isFindable: $isFindable, createdDate: $createdDate, createdUid: $createdUid, updatedDate: $updatedDate, updatedUid: $updatedUid}';
-  }
+  factory Contacts.fromJson(Map<String, dynamic> json) => _$ContactsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ContactsToJson(this);
+
 }

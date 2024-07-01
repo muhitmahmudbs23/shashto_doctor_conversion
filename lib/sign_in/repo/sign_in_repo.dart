@@ -1,15 +1,29 @@
+import 'dart:collection';
 import 'dart:developer';
 import 'dart:typed_data';
 
+import 'package:shashto_doctor_conversion/database/dao/tags.dart';
+
 import '../../service/api/api.dart';
+import '../../service/api/responses/login.dart';
+import '../../service/api/responses/tag_list.dart';
 import '../../service/local_storage/cache_service.dart';
 
 
 class UserRepository {
+  final TagsDao tagsDao;
+
+  UserRepository({required this.tagsDao});
   // API methods
   Future<Map<String, dynamic>> login(String username, String password) async {
     final response = await API.login(username, password);
+    log("passed _login");
+    log(response.toString());
+
+    final login = Login.fromJson(response);
     // Store the token in the cache
+    log("Passed parsing");
+
     await CacheService.instance.storeBearerToken(response['token']);
     
     // Call dependent methods upon successful login
@@ -17,9 +31,9 @@ class UserRepository {
     log("passed _getTagList");
     await getVitalList();
     log("passed _getVitalList");
-    await getDoctorWorkInfo(response);
+    await getDoctorWorkInfo(login);
     log("passed _getDoctorWorkInfo");
-    await getRatingTagList(response);
+    await getRatingTagList(login);
     log("passed _getRatingTagList");
     //await _updateFcmToken(response);
     //log("passed _updateFcmToken");
@@ -57,11 +71,14 @@ class UserRepository {
     return response;
   }
 
-  Future<Map<String, dynamic>> getTagList() async {
-    final response = await API.getTagList();
-    // Store tag list in the cache
-    await CacheService.instance.storeTagList(response);
-    return response;
+  Future<void> getTagList() async {
+    try {
+      final response = await API.getTagList();
+      final tagListResponse = TagList.fromJson(response);
+      await tagsDao.insertOrUpdateList(tagListResponse.tagsList);
+    } catch (error) {
+      log("getTagList Error: ${error.toString()}");
+    }
   }
 
   Future<Map<String, dynamic>> putContact(int contactId, Map<String, dynamic> data) async {
@@ -90,7 +107,11 @@ class UserRepository {
     return response;
   }
 
-  Future<Map<String, dynamic>> getRatingTagList(Map<String, dynamic> query) async {
+  Future<Map<String, dynamic>> getRatingTagList(Login login) async {
+
+    final query = {
+      "contact_id": login.contacts.id,
+    };
     final response = await API.getRatingTagList(query);
     // Store rating tag list in the cache
     await CacheService.instance.storeRatingTagList(response);
@@ -113,7 +134,10 @@ class UserRepository {
     return await API.putShare(shareId, data);
   }
 
-  Future<Map<String, dynamic>> getDoctorWorkInfo(Map<String, dynamic> query) async {
+  Future<Map<String, dynamic>> getDoctorWorkInfo(Login login) async {
+    final query = {
+      "contact_id": login.contacts.id,
+    };
     final response = await API.getDoctorWorkInfo(query);
     // Store doctor work info in the cache
     await CacheService.instance.storeDoctorWorkInfo(response);

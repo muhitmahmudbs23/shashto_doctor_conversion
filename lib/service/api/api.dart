@@ -14,6 +14,7 @@ class API {
   static const String _changePassword = 'users/password-change';
 
   static Future<Map<String, dynamic>> login(String username, String password) async {
+    try {
     final response = await dioClient.post(
       _login,
       data: {
@@ -21,8 +22,11 @@ class API {
         'password': password,
       },
     );
+      return response.data ;      
+    }catch (e) {
+      throw Exception('Failed to login: $e');
+    }
 
-    return _handleResponse(response);
   }
 
   static Future<Map<String, dynamic>> sendOtp(String username) async {
@@ -94,12 +98,15 @@ class API {
   }
 
   static Future<Map<String, dynamic>> putContact(int contactId, Map<String, dynamic> data) async {
+    try{
     final response = await dioClient.put(
       "contacts/$contactId",
       data: data,
     );
-
-    return _handleResponse(response);
+        return response.data;
+    }catch (e) {
+      throw Exception('Failed to update contact: $e');
+    }
   }
 
   static Future<Map<String, dynamic>> getVitalList() async {
@@ -183,15 +190,22 @@ class API {
 
   static Future<Map<String, dynamic>> getDoctorWorkInfo(Map<String, dynamic>? query) async {
     log("here");
-    log(query.toString());
+    log("query: $query");
     log(query.runtimeType.toString());
     log(query!["contact_id"].runtimeType.toString());
+
+    try{
     final response = await dioClient.get(
       "shashto-doctors/get-doctor-work-info/",
-      queryParameters: query,
+      queryParameters: {
+        "contact_id": query["contact_id"],
+      },
     );
-
-    return _handleResponse(response);
+      return response.data;
+    }catch (e) {
+      throw Exception('Failed to get doctor work info: $e');
+    }
+    
   }
 
   static Future<Map<String, dynamic>> submitDoctorReport(Map<String, dynamic> data) async {

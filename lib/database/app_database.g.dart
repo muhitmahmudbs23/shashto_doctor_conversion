@@ -166,9 +166,9 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `username` TEXT NOT NULL, `email` TEXT NOT NULL, `first_name` TEXT NOT NULL, `last_name` TEXT NOT NULL, `profile_name` TEXT NOT NULL, `contact_id` INTEGER NOT NULL, `revera_id` TEXT NOT NULL, `user_type` TEXT NOT NULL, `security_question` TEXT NOT NULL, `security_answer` TEXT NOT NULL, `status` INTEGER NOT NULL, `terms_and_condition_accepted` INTEGER NOT NULL, `created_date` TEXT NOT NULL, `created_uid` INTEGER NOT NULL, `updated_date` TEXT NOT NULL, `updated_uid` INTEGER NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `username` TEXT NOT NULL, `email` TEXT NOT NULL, `first_name` TEXT NOT NULL, `last_name` TEXT NOT NULL, `profile_name` TEXT NOT NULL, `contact_id` INTEGER NOT NULL, `revera_id` TEXT NOT NULL, `user_type` TEXT NOT NULL, `security_question` TEXT NOT NULL, `security_answer` TEXT NOT NULL, `status` INTEGER NOT NULL, `terms_and_condition_accepted` INTEGER NOT NULL, `created_date` TEXT NOT NULL, `created_uid` INTEGER, `updated_date` TEXT NOT NULL, `updated_uid` INTEGER)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `contacts` (`id` INTEGER NOT NULL, `first_name` TEXT NOT NULL, `last_name` TEXT NOT NULL, `date_of_birth` TEXT NOT NULL, `country_of_birth` TEXT NOT NULL, `estimated_age` TEXT NOT NULL, `gender` TEXT NOT NULL, `status` INTEGER NOT NULL, `nationality` TEXT NOT NULL, `national_id` TEXT NOT NULL, `nid_photo_one` TEXT NOT NULL, `nid_photo_two` TEXT NOT NULL, `have_medical_insurance` INTEGER NOT NULL, `no_of_children` INTEGER NOT NULL, `medical_insurance_name` TEXT NOT NULL, `medical_insurance_id` TEXT NOT NULL, `mid_photo_one` TEXT NOT NULL, `mid_photo_two` TEXT NOT NULL, `ethnicity` TEXT NOT NULL, `religion` TEXT NOT NULL, `occupation` TEXT NOT NULL, `education_level` TEXT NOT NULL, `merital_status` TEXT NOT NULL, `have_children` INTEGER NOT NULL, `blood_group` TEXT NOT NULL, `email` TEXT NOT NULL, `username` TEXT NOT NULL, `phone` TEXT NOT NULL, `height` TEXT NOT NULL, `weight` TEXT NOT NULL, `bmi` TEXT NOT NULL, `alergies` TEXT NOT NULL, `profile_photo` TEXT NOT NULL, `is_findable` INTEGER NOT NULL, `created_date` TEXT NOT NULL, `created_uid` INTEGER NOT NULL, `updated_date` TEXT NOT NULL, `updated_uid` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `contacts` (`id` INTEGER NOT NULL, `first_name` TEXT, `last_name` TEXT, `date_of_birth` TEXT, `country_of_birth` TEXT, `estimated_age` TEXT, `gender` TEXT, `status` INTEGER, `nationality` TEXT, `national_id` TEXT, `nid_photo_one` TEXT, `nid_photo_two` TEXT, `have_medical_insurance` INTEGER, `no_of_children` INTEGER, `medical_insurance_name` TEXT, `medical_insurance_id` TEXT, `mid_photo_one` TEXT, `mid_photo_two` TEXT, `ethnicity` TEXT, `religion` TEXT, `occupation` TEXT, `education_level` TEXT, `merital_status` TEXT, `have_children` INTEGER, `blood_group` TEXT, `email` TEXT, `username` TEXT, `phone` TEXT, `height` TEXT, `weight` TEXT, `bmi` TEXT, `alergies` TEXT, `profile_photo` TEXT, `is_findable` INTEGER, `created_date` TEXT, `created_uid` INTEGER, `createdBy` TEXT, `updatedBy` TEXT, `updated_date` TEXT, `updated_uid` INTEGER, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `contacts_attribute` (`id` INTEGER NOT NULL, `contact_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `attribute_key` TEXT NOT NULL, `attribute_value` TEXT NOT NULL, `order_number` INTEGER NOT NULL, `created_date` TEXT NOT NULL, `created_uid` INTEGER NOT NULL, `updated_date` TEXT NOT NULL, `updated_uid` INTEGER NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
@@ -220,7 +220,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `contacts_location` (`id` INTEGER NOT NULL, `contact_id` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT NOT NULL, `country` TEXT NOT NULL, `state` TEXT NOT NULL, `city` TEXT NOT NULL, `post_code` TEXT NOT NULL, `created_date` TEXT NOT NULL, `created_by` TEXT NOT NULL, `updated_date` TEXT NOT NULL, `updated_by` TEXT NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `revera_doctors` (`id` INTEGER, `digital_sign_image` TEXT NOT NULL, `name` TEXT NOT NULL, `designation` TEXT NOT NULL, `institution` TEXT NOT NULL, `specialization` TEXT NOT NULL, `description` TEXT NOT NULL, `status` INTEGER NOT NULL, `contact_id` INTEGER NOT NULL, `revera_id` TEXT NOT NULL, `profile_name` TEXT NOT NULL, `created_date` TEXT NOT NULL, `created_by` TEXT NOT NULL, `updated_date` TEXT NOT NULL, `updated_by` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `revera_doctors` (`id` INTEGER, `digitalSignImage` TEXT, `name` TEXT, `designation` TEXT, `institution` TEXT, `specialization` TEXT, `description` TEXT, `status` INTEGER, `contactId` INTEGER, `reveraId` TEXT, `profileName` TEXT, `createdDate` TEXT, `createdBy` TEXT, `updatedDate` TEXT, `updatedBy` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `revera_doctor_appointment_slots` (`id` INTEGER, `shashto_doc_id` INTEGER NOT NULL, `slot_request_id` INTEGER NOT NULL, `date` TEXT NOT NULL, `time` TEXT NOT NULL, `time_slot` TEXT NOT NULL, `start_time` TEXT NOT NULL, `end_time` TEXT NOT NULL, `status` INTEGER NOT NULL, `created_date` TEXT NOT NULL, `created_by` TEXT NOT NULL, `updated_date` TEXT NOT NULL, `updated_by` TEXT NOT NULL, `time_stamp` INTEGER NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
@@ -242,9 +242,9 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `ClinicalRecord` (`contacts_medical_images_type_id` INTEGER, `report_type` INTEGER, `report_sub_type` INTEGER, `id` INTEGER NOT NULL, `contact_id` INTEGER NOT NULL, `module_id` INTEGER NOT NULL, `institution_name` TEXT NOT NULL, `provider_name` TEXT NOT NULL, `record_date` TEXT NOT NULL, `notes` TEXT NOT NULL, `custom_report_name` TEXT NOT NULL, `created_date` TEXT NOT NULL, `created_by` TEXT NOT NULL, `updated_date` TEXT NOT NULL, `updated_by` TEXT NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `EmergencyContacts` (`relationship_type` TEXT, `address1` TEXT, `is_linked_profile` INTEGER, `id` INTEGER NOT NULL, `first_name` TEXT NOT NULL, `last_name` TEXT NOT NULL, `date_of_birth` TEXT NOT NULL, `country_of_birth` TEXT NOT NULL, `estimated_age` TEXT NOT NULL, `gender` TEXT NOT NULL, `status` INTEGER NOT NULL, `nationality` TEXT NOT NULL, `national_id` TEXT NOT NULL, `nid_photo_one` TEXT NOT NULL, `nid_photo_two` TEXT NOT NULL, `have_medical_insurance` INTEGER NOT NULL, `no_of_children` INTEGER NOT NULL, `medical_insurance_name` TEXT NOT NULL, `medical_insurance_id` TEXT NOT NULL, `mid_photo_one` TEXT NOT NULL, `mid_photo_two` TEXT NOT NULL, `ethnicity` TEXT NOT NULL, `religion` TEXT NOT NULL, `occupation` TEXT NOT NULL, `education_level` TEXT NOT NULL, `merital_status` TEXT NOT NULL, `have_children` INTEGER NOT NULL, `blood_group` TEXT NOT NULL, `email` TEXT NOT NULL, `username` TEXT NOT NULL, `phone` TEXT NOT NULL, `height` TEXT NOT NULL, `weight` TEXT NOT NULL, `bmi` TEXT NOT NULL, `alergies` TEXT NOT NULL, `profile_photo` TEXT NOT NULL, `is_findable` INTEGER NOT NULL, `created_date` TEXT NOT NULL, `created_uid` INTEGER NOT NULL, `updated_date` TEXT NOT NULL, `updated_uid` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `EmergencyContacts` (`relationship_type` TEXT, `address1` TEXT, `is_linked_profile` INTEGER, `id` INTEGER NOT NULL, `first_name` TEXT, `last_name` TEXT, `date_of_birth` TEXT, `country_of_birth` TEXT, `estimated_age` TEXT, `gender` TEXT, `status` INTEGER, `nationality` TEXT, `national_id` TEXT, `nid_photo_one` TEXT, `nid_photo_two` TEXT, `have_medical_insurance` INTEGER, `no_of_children` INTEGER, `medical_insurance_name` TEXT, `medical_insurance_id` TEXT, `mid_photo_one` TEXT, `mid_photo_two` TEXT, `ethnicity` TEXT, `religion` TEXT, `occupation` TEXT, `education_level` TEXT, `merital_status` TEXT, `have_children` INTEGER, `blood_group` TEXT, `email` TEXT, `username` TEXT, `phone` TEXT, `height` TEXT, `weight` TEXT, `bmi` TEXT, `alergies` TEXT, `profile_photo` TEXT, `is_findable` INTEGER, `created_date` TEXT, `created_uid` INTEGER, `createdBy` TEXT, `updatedBy` TEXT, `updated_date` TEXT, `updated_uid` INTEGER, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Children` (`relationship_type` TEXT, `is_linked_profile` INTEGER, `id` INTEGER NOT NULL, `first_name` TEXT NOT NULL, `last_name` TEXT NOT NULL, `date_of_birth` TEXT NOT NULL, `country_of_birth` TEXT NOT NULL, `estimated_age` TEXT NOT NULL, `gender` TEXT NOT NULL, `status` INTEGER NOT NULL, `nationality` TEXT NOT NULL, `national_id` TEXT NOT NULL, `nid_photo_one` TEXT NOT NULL, `nid_photo_two` TEXT NOT NULL, `have_medical_insurance` INTEGER NOT NULL, `no_of_children` INTEGER NOT NULL, `medical_insurance_name` TEXT NOT NULL, `medical_insurance_id` TEXT NOT NULL, `mid_photo_one` TEXT NOT NULL, `mid_photo_two` TEXT NOT NULL, `ethnicity` TEXT NOT NULL, `religion` TEXT NOT NULL, `occupation` TEXT NOT NULL, `education_level` TEXT NOT NULL, `merital_status` TEXT NOT NULL, `have_children` INTEGER NOT NULL, `blood_group` TEXT NOT NULL, `email` TEXT NOT NULL, `username` TEXT NOT NULL, `phone` TEXT NOT NULL, `height` TEXT NOT NULL, `weight` TEXT NOT NULL, `bmi` TEXT NOT NULL, `alergies` TEXT NOT NULL, `profile_photo` TEXT NOT NULL, `is_findable` INTEGER NOT NULL, `created_date` TEXT NOT NULL, `created_uid` INTEGER NOT NULL, `updated_date` TEXT NOT NULL, `updated_uid` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Children` (`relationshipType` TEXT, `isLinkedProfile` INTEGER, `birthWeight` TEXT, `typeOfDelivery` TEXT, `isExpanded` INTEGER NOT NULL, `id` INTEGER NOT NULL, `first_name` TEXT, `last_name` TEXT, `date_of_birth` TEXT, `country_of_birth` TEXT, `estimated_age` TEXT, `gender` TEXT, `status` INTEGER, `nationality` TEXT, `national_id` TEXT, `nid_photo_one` TEXT, `nid_photo_two` TEXT, `have_medical_insurance` INTEGER, `no_of_children` INTEGER, `medical_insurance_name` TEXT, `medical_insurance_id` TEXT, `mid_photo_one` TEXT, `mid_photo_two` TEXT, `ethnicity` TEXT, `religion` TEXT, `occupation` TEXT, `education_level` TEXT, `merital_status` TEXT, `have_children` INTEGER, `blood_group` TEXT, `email` TEXT, `username` TEXT, `phone` TEXT, `height` TEXT, `weight` TEXT, `bmi` TEXT, `alergies` TEXT, `profile_photo` TEXT, `is_findable` INTEGER, `created_date` TEXT, `created_uid` INTEGER, `createdBy` TEXT, `updatedBy` TEXT, `updated_date` TEXT, `updated_uid` INTEGER, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `LinkProfile` (`id` INTEGER NOT NULL, `first_name` TEXT NOT NULL, `last_name` TEXT NOT NULL, `date_of_birth` TEXT NOT NULL, `country_of_birth` TEXT NOT NULL, `estimated_age` TEXT NOT NULL, `gender` TEXT NOT NULL, `status` INTEGER NOT NULL, `nationality` TEXT NOT NULL, `national_id` TEXT NOT NULL, `nid_photo_one` TEXT NOT NULL, `nid_photo_two` TEXT NOT NULL, `have_medical_insurance` INTEGER NOT NULL, `no_of_children` INTEGER NOT NULL, `medical_insurance_name` TEXT NOT NULL, `medical_insurance_id` TEXT NOT NULL, `mid_photo_one` TEXT NOT NULL, `mid_photo_two` TEXT NOT NULL, `ethnicity` TEXT NOT NULL, `religion` TEXT NOT NULL, `occupation` TEXT NOT NULL, `education_level` TEXT NOT NULL, `merital_status` TEXT NOT NULL, `have_children` INTEGER NOT NULL, `blood_group` TEXT NOT NULL, `email` TEXT NOT NULL, `username` TEXT NOT NULL, `phone` TEXT NOT NULL, `height` TEXT NOT NULL, `weight` TEXT NOT NULL, `bmi` TEXT NOT NULL, `alergies` TEXT NOT NULL, `profile_photo` TEXT NOT NULL, `is_findable` INTEGER NOT NULL, `created_date` TEXT NOT NULL, `created_uid` INTEGER NOT NULL, `updated_date` TEXT NOT NULL, `updated_uid` INTEGER NOT NULL, `isSelected` INTEGER NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
@@ -2872,7 +2872,7 @@ class _$ContactRelationShipDao extends ContactRelationShipDao {
       int contactId) async {
     return _queryAdapter.queryList(
         'SELECT contacts.*, contact_relationship.relationship_type, contact_relationship.is_linked_profile, contact_address.address1 FROM contacts, contact_relationship, contact_address WHERE contact_relationship.contact_id = ?1 AND contacts.id = contact_relationship.related_contact_id AND contact_relationship.related_contact_id = contact_address.contact_id AND contact_relationship.is_emergency_contact = 1',
-        mapper: (Map<String, Object?> row) => EmergencyContacts(id: row['id'] as int, firstName: row['first_name'] as String, lastName: row['last_name'] as String, dateOfBirth: row['date_of_birth'] as String, countryOfBirth: row['country_of_birth'] as String, estimatedAge: row['estimated_age'] as String, gender: row['gender'] as String, status: (row['status'] as int) != 0, nationality: row['nationality'] as String, nationalId: row['national_id'] as String, nidPhotoOne: row['nid_photo_one'] as String, nidPhotoTwo: row['nid_photo_two'] as String, haveMedicalInsurance: (row['have_medical_insurance'] as int) != 0, noOfChildren: row['no_of_children'] as int, medicalInsuranceName: row['medical_insurance_name'] as String, medicalInsuranceId: row['medical_insurance_id'] as String, midPhotoOne: row['mid_photo_one'] as String, midPhotoTwo: row['mid_photo_two'] as String, ethnicity: row['ethnicity'] as String, religion: row['religion'] as String, occupation: row['occupation'] as String, educationLevel: row['education_level'] as String, meritalStatus: row['merital_status'] as String, haveChildren: (row['have_children'] as int) != 0, bloodGroup: row['blood_group'] as String, email: row['email'] as String, username: row['username'] as String, phone: row['phone'] as String, height: row['height'] as String, weight: row['weight'] as String, bmi: row['bmi'] as String, alergies: row['alergies'] as String, profilePhoto: row['profile_photo'] as String, isFindable: (row['is_findable'] as int) != 0, createdDate: row['created_date'] as String, createdUid: row['created_uid'] as int, updatedDate: row['updated_date'] as String, updatedUid: row['updated_uid'] as int, relationshipType: row['relationship_type'] as String?, address: row['address1'] as String?, isLinkedProfile: row['is_linked_profile'] == null ? null : (row['is_linked_profile'] as int) != 0),
+        mapper: (Map<String, Object?> row) => EmergencyContacts(id: row['id'] as int, firstName: row['first_name'] as String?, lastName: row['last_name'] as String?, dateOfBirth: row['date_of_birth'] as String?, countryOfBirth: row['country_of_birth'] as String?, estimatedAge: row['estimated_age'] as String?, gender: row['gender'] as String?, status: row['status'] == null ? null : (row['status'] as int) != 0, nationality: row['nationality'] as String?, nationalId: row['national_id'] as String?, nidPhotoOne: row['nid_photo_one'] as String?, nidPhotoTwo: row['nid_photo_two'] as String?, haveMedicalInsurance: row['have_medical_insurance'] == null ? null : (row['have_medical_insurance'] as int) != 0, noOfChildren: row['no_of_children'] as int?, medicalInsuranceName: row['medical_insurance_name'] as String?, medicalInsuranceId: row['medical_insurance_id'] as String?, midPhotoOne: row['mid_photo_one'] as String?, midPhotoTwo: row['mid_photo_two'] as String?, ethnicity: row['ethnicity'] as String?, religion: row['religion'] as String?, occupation: row['occupation'] as String?, educationLevel: row['education_level'] as String?, meritalStatus: row['merital_status'] as String?, haveChildren: row['have_children'] == null ? null : (row['have_children'] as int) != 0, bloodGroup: row['blood_group'] as String?, email: row['email'] as String?, username: row['username'] as String?, phone: row['phone'] as String?, height: row['height'] as String?, weight: row['weight'] as String?, bmi: row['bmi'] as String?, alergies: row['alergies'] as String?, profilePhoto: row['profile_photo'] as String?, isFindable: row['is_findable'] == null ? null : (row['is_findable'] as int) != 0, createdDate: row['created_date'] as String?, createdUid: row['created_uid'] as int?, updatedDate: row['updated_date'] as String?, updatedUid: row['updated_uid'] as int?, relationshipType: row['relationship_type'] as String?, address: row['address1'] as String?, isLinkedProfile: row['is_linked_profile'] == null ? null : (row['is_linked_profile'] as int) != 0),
         arguments: [contactId]);
   }
 
@@ -2900,7 +2900,7 @@ class _$ContactRelationShipDao extends ContactRelationShipDao {
   Future<List<Children>> getChildrenContactsByContactId(int contactId) async {
     return _queryAdapter.queryList(
         'SELECT contacts.*, contact_relationship.relationship_type, contact_relationship.is_linked_profile FROM contacts, contact_relationship WHERE contact_relationship.contact_id = ?1 AND contacts.id = contact_relationship.related_contact_id AND contact_relationship.is_children = 1',
-        mapper: (Map<String, Object?> row) => Children(relationshipType: row['relationship_type'] as String?, isLinkedProfile: row['is_linked_profile'] == null ? null : (row['is_linked_profile'] as int) != 0, id: row['id'] as int, firstName: row['first_name'] as String, lastName: row['last_name'] as String, dateOfBirth: row['date_of_birth'] as String, countryOfBirth: row['country_of_birth'] as String, estimatedAge: row['estimated_age'] as String, gender: row['gender'] as String, status: (row['status'] as int) != 0, nationality: row['nationality'] as String, nationalId: row['national_id'] as String, nidPhotoOne: row['nid_photo_one'] as String, nidPhotoTwo: row['nid_photo_two'] as String, haveMedicalInsurance: (row['have_medical_insurance'] as int) != 0, noOfChildren: row['no_of_children'] as int, medicalInsuranceName: row['medical_insurance_name'] as String, medicalInsuranceId: row['medical_insurance_id'] as String, midPhotoOne: row['mid_photo_one'] as String, midPhotoTwo: row['mid_photo_two'] as String, ethnicity: row['ethnicity'] as String, religion: row['religion'] as String, occupation: row['occupation'] as String, educationLevel: row['education_level'] as String, meritalStatus: row['merital_status'] as String, haveChildren: (row['have_children'] as int) != 0, bloodGroup: row['blood_group'] as String, email: row['email'] as String, username: row['username'] as String, phone: row['phone'] as String, height: row['height'] as String, weight: row['weight'] as String, bmi: row['bmi'] as String, alergies: row['alergies'] as String, profilePhoto: row['profile_photo'] as String, isFindable: (row['is_findable'] as int) != 0, createdDate: row['created_date'] as String, createdUid: row['created_uid'] as int, updatedDate: row['updated_date'] as String, updatedUid: row['updated_uid'] as int),
+        mapper: (Map<String, Object?> row) => Children(relationshipType: row['relationshipType'] as String?, isLinkedProfile: row['isLinkedProfile'] == null ? null : (row['isLinkedProfile'] as int) != 0, birthWeight: row['birthWeight'] as String?, typeOfDelivery: row['typeOfDelivery'] as String?, isExpanded: (row['isExpanded'] as int) != 0, id: row['id'] as int, firstName: row['first_name'] as String?, lastName: row['last_name'] as String?, dateOfBirth: row['date_of_birth'] as String?, countryOfBirth: row['country_of_birth'] as String?, estimatedAge: row['estimated_age'] as String?, gender: row['gender'] as String?, status: row['status'] == null ? null : (row['status'] as int) != 0, nationality: row['nationality'] as String?, nationalId: row['national_id'] as String?, nidPhotoOne: row['nid_photo_one'] as String?, nidPhotoTwo: row['nid_photo_two'] as String?, haveMedicalInsurance: row['have_medical_insurance'] == null ? null : (row['have_medical_insurance'] as int) != 0, noOfChildren: row['no_of_children'] as int?, medicalInsuranceName: row['medical_insurance_name'] as String?, medicalInsuranceId: row['medical_insurance_id'] as String?, midPhotoOne: row['mid_photo_one'] as String?, midPhotoTwo: row['mid_photo_two'] as String?, ethnicity: row['ethnicity'] as String?, religion: row['religion'] as String?, occupation: row['occupation'] as String?, educationLevel: row['education_level'] as String?, meritalStatus: row['merital_status'] as String?, haveChildren: row['have_children'] == null ? null : (row['have_children'] as int) != 0, bloodGroup: row['blood_group'] as String?, email: row['email'] as String?, username: row['username'] as String?, phone: row['phone'] as String?, height: row['height'] as String?, weight: row['weight'] as String?, bmi: row['bmi'] as String?, alergies: row['alergies'] as String?, profilePhoto: row['profile_photo'] as String?, isFindable: row['is_findable'] == null ? null : (row['is_findable'] as int) != 0, createdDate: row['created_date'] as String?, createdUid: row['created_uid'] as int?, updatedDate: row['updated_date'] as String?, updatedUid: row['updated_uid'] as int?),
         arguments: [contactId]);
   }
 
@@ -3123,12 +3123,14 @@ class _$ContactsDao extends ContactsDao {
                   'country_of_birth': item.countryOfBirth,
                   'estimated_age': item.estimatedAge,
                   'gender': item.gender,
-                  'status': item.status ? 1 : 0,
+                  'status': item.status == null ? null : (item.status! ? 1 : 0),
                   'nationality': item.nationality,
                   'national_id': item.nationalId,
                   'nid_photo_one': item.nidPhotoOne,
                   'nid_photo_two': item.nidPhotoTwo,
-                  'have_medical_insurance': item.haveMedicalInsurance ? 1 : 0,
+                  'have_medical_insurance': item.haveMedicalInsurance == null
+                      ? null
+                      : (item.haveMedicalInsurance! ? 1 : 0),
                   'no_of_children': item.noOfChildren,
                   'medical_insurance_name': item.medicalInsuranceName,
                   'medical_insurance_id': item.medicalInsuranceId,
@@ -3139,7 +3141,9 @@ class _$ContactsDao extends ContactsDao {
                   'occupation': item.occupation,
                   'education_level': item.educationLevel,
                   'merital_status': item.meritalStatus,
-                  'have_children': item.haveChildren ? 1 : 0,
+                  'have_children': item.haveChildren == null
+                      ? null
+                      : (item.haveChildren! ? 1 : 0),
                   'blood_group': item.bloodGroup,
                   'email': item.email,
                   'username': item.username,
@@ -3149,9 +3153,13 @@ class _$ContactsDao extends ContactsDao {
                   'bmi': item.bmi,
                   'alergies': item.alergies,
                   'profile_photo': item.profilePhoto,
-                  'is_findable': item.isFindable ? 1 : 0,
+                  'is_findable': item.isFindable == null
+                      ? null
+                      : (item.isFindable! ? 1 : 0),
                   'created_date': item.createdDate,
                   'created_uid': item.createdUid,
+                  'createdBy': item.createdBy,
+                  'updatedBy': item.updatedBy,
                   'updated_date': item.updatedDate,
                   'updated_uid': item.updatedUid
                 }),
@@ -3167,12 +3175,14 @@ class _$ContactsDao extends ContactsDao {
                   'country_of_birth': item.countryOfBirth,
                   'estimated_age': item.estimatedAge,
                   'gender': item.gender,
-                  'status': item.status ? 1 : 0,
+                  'status': item.status == null ? null : (item.status! ? 1 : 0),
                   'nationality': item.nationality,
                   'national_id': item.nationalId,
                   'nid_photo_one': item.nidPhotoOne,
                   'nid_photo_two': item.nidPhotoTwo,
-                  'have_medical_insurance': item.haveMedicalInsurance ? 1 : 0,
+                  'have_medical_insurance': item.haveMedicalInsurance == null
+                      ? null
+                      : (item.haveMedicalInsurance! ? 1 : 0),
                   'no_of_children': item.noOfChildren,
                   'medical_insurance_name': item.medicalInsuranceName,
                   'medical_insurance_id': item.medicalInsuranceId,
@@ -3183,7 +3193,9 @@ class _$ContactsDao extends ContactsDao {
                   'occupation': item.occupation,
                   'education_level': item.educationLevel,
                   'merital_status': item.meritalStatus,
-                  'have_children': item.haveChildren ? 1 : 0,
+                  'have_children': item.haveChildren == null
+                      ? null
+                      : (item.haveChildren! ? 1 : 0),
                   'blood_group': item.bloodGroup,
                   'email': item.email,
                   'username': item.username,
@@ -3193,9 +3205,13 @@ class _$ContactsDao extends ContactsDao {
                   'bmi': item.bmi,
                   'alergies': item.alergies,
                   'profile_photo': item.profilePhoto,
-                  'is_findable': item.isFindable ? 1 : 0,
+                  'is_findable': item.isFindable == null
+                      ? null
+                      : (item.isFindable! ? 1 : 0),
                   'created_date': item.createdDate,
                   'created_uid': item.createdUid,
+                  'createdBy': item.createdBy,
+                  'updatedBy': item.updatedBy,
                   'updated_date': item.updatedDate,
                   'updated_uid': item.updatedUid
                 }),
@@ -3211,12 +3227,14 @@ class _$ContactsDao extends ContactsDao {
                   'country_of_birth': item.countryOfBirth,
                   'estimated_age': item.estimatedAge,
                   'gender': item.gender,
-                  'status': item.status ? 1 : 0,
+                  'status': item.status == null ? null : (item.status! ? 1 : 0),
                   'nationality': item.nationality,
                   'national_id': item.nationalId,
                   'nid_photo_one': item.nidPhotoOne,
                   'nid_photo_two': item.nidPhotoTwo,
-                  'have_medical_insurance': item.haveMedicalInsurance ? 1 : 0,
+                  'have_medical_insurance': item.haveMedicalInsurance == null
+                      ? null
+                      : (item.haveMedicalInsurance! ? 1 : 0),
                   'no_of_children': item.noOfChildren,
                   'medical_insurance_name': item.medicalInsuranceName,
                   'medical_insurance_id': item.medicalInsuranceId,
@@ -3227,7 +3245,9 @@ class _$ContactsDao extends ContactsDao {
                   'occupation': item.occupation,
                   'education_level': item.educationLevel,
                   'merital_status': item.meritalStatus,
-                  'have_children': item.haveChildren ? 1 : 0,
+                  'have_children': item.haveChildren == null
+                      ? null
+                      : (item.haveChildren! ? 1 : 0),
                   'blood_group': item.bloodGroup,
                   'email': item.email,
                   'username': item.username,
@@ -3237,9 +3257,13 @@ class _$ContactsDao extends ContactsDao {
                   'bmi': item.bmi,
                   'alergies': item.alergies,
                   'profile_photo': item.profilePhoto,
-                  'is_findable': item.isFindable ? 1 : 0,
+                  'is_findable': item.isFindable == null
+                      ? null
+                      : (item.isFindable! ? 1 : 0),
                   'created_date': item.createdDate,
                   'created_uid': item.createdUid,
+                  'createdBy': item.createdBy,
+                  'updatedBy': item.updatedBy,
                   'updated_date': item.updatedDate,
                   'updated_uid': item.updatedUid
                 });
@@ -3261,43 +3285,51 @@ class _$ContactsDao extends ContactsDao {
     return _queryAdapter.query('SELECT * FROM contacts WHERE id = ?1',
         mapper: (Map<String, Object?> row) => Contacts(
             id: row['id'] as int,
-            firstName: row['first_name'] as String,
-            lastName: row['last_name'] as String,
-            dateOfBirth: row['date_of_birth'] as String,
-            countryOfBirth: row['country_of_birth'] as String,
-            estimatedAge: row['estimated_age'] as String,
-            gender: row['gender'] as String,
-            status: (row['status'] as int) != 0,
-            nationality: row['nationality'] as String,
-            nationalId: row['national_id'] as String,
-            nidPhotoOne: row['nid_photo_one'] as String,
-            nidPhotoTwo: row['nid_photo_two'] as String,
-            haveMedicalInsurance: (row['have_medical_insurance'] as int) != 0,
-            noOfChildren: row['no_of_children'] as int,
-            medicalInsuranceName: row['medical_insurance_name'] as String,
-            medicalInsuranceId: row['medical_insurance_id'] as String,
-            midPhotoOne: row['mid_photo_one'] as String,
-            midPhotoTwo: row['mid_photo_two'] as String,
-            ethnicity: row['ethnicity'] as String,
-            religion: row['religion'] as String,
-            occupation: row['occupation'] as String,
-            educationLevel: row['education_level'] as String,
-            meritalStatus: row['merital_status'] as String,
-            haveChildren: (row['have_children'] as int) != 0,
-            bloodGroup: row['blood_group'] as String,
-            email: row['email'] as String,
-            username: row['username'] as String,
-            phone: row['phone'] as String,
-            height: row['height'] as String,
-            weight: row['weight'] as String,
-            bmi: row['bmi'] as String,
-            alergies: row['alergies'] as String,
-            profilePhoto: row['profile_photo'] as String,
-            isFindable: (row['is_findable'] as int) != 0,
-            createdDate: row['created_date'] as String,
-            createdUid: row['created_uid'] as int,
-            updatedDate: row['updated_date'] as String,
-            updatedUid: row['updated_uid'] as int),
+            firstName: row['first_name'] as String?,
+            lastName: row['last_name'] as String?,
+            dateOfBirth: row['date_of_birth'] as String?,
+            countryOfBirth: row['country_of_birth'] as String?,
+            estimatedAge: row['estimated_age'] as String?,
+            gender: row['gender'] as String?,
+            status: row['status'] == null ? null : (row['status'] as int) != 0,
+            nationality: row['nationality'] as String?,
+            nationalId: row['national_id'] as String?,
+            nidPhotoOne: row['nid_photo_one'] as String?,
+            nidPhotoTwo: row['nid_photo_two'] as String?,
+            haveMedicalInsurance: row['have_medical_insurance'] == null
+                ? null
+                : (row['have_medical_insurance'] as int) != 0,
+            noOfChildren: row['no_of_children'] as int?,
+            medicalInsuranceName: row['medical_insurance_name'] as String?,
+            medicalInsuranceId: row['medical_insurance_id'] as String?,
+            midPhotoOne: row['mid_photo_one'] as String?,
+            midPhotoTwo: row['mid_photo_two'] as String?,
+            ethnicity: row['ethnicity'] as String?,
+            religion: row['religion'] as String?,
+            occupation: row['occupation'] as String?,
+            educationLevel: row['education_level'] as String?,
+            meritalStatus: row['merital_status'] as String?,
+            haveChildren: row['have_children'] == null
+                ? null
+                : (row['have_children'] as int) != 0,
+            bloodGroup: row['blood_group'] as String?,
+            email: row['email'] as String?,
+            username: row['username'] as String?,
+            phone: row['phone'] as String?,
+            height: row['height'] as String?,
+            weight: row['weight'] as String?,
+            bmi: row['bmi'] as String?,
+            alergies: row['alergies'] as String?,
+            profilePhoto: row['profile_photo'] as String?,
+            isFindable: row['is_findable'] == null
+                ? null
+                : (row['is_findable'] as int) != 0,
+            createdDate: row['created_date'] as String?,
+            createdUid: row['created_uid'] as int?,
+            updatedDate: row['updated_date'] as String?,
+            updatedUid: row['updated_uid'] as int?,
+            createdBy: row['createdBy'] as String?,
+            updatedBy: row['updatedBy'] as String?),
         arguments: [contactId]);
   }
 
@@ -3306,43 +3338,51 @@ class _$ContactsDao extends ContactsDao {
     return _queryAdapter.query('SELECT * FROM contacts WHERE id = ?1',
         mapper: (Map<String, Object?> row) => Contacts(
             id: row['id'] as int,
-            firstName: row['first_name'] as String,
-            lastName: row['last_name'] as String,
-            dateOfBirth: row['date_of_birth'] as String,
-            countryOfBirth: row['country_of_birth'] as String,
-            estimatedAge: row['estimated_age'] as String,
-            gender: row['gender'] as String,
-            status: (row['status'] as int) != 0,
-            nationality: row['nationality'] as String,
-            nationalId: row['national_id'] as String,
-            nidPhotoOne: row['nid_photo_one'] as String,
-            nidPhotoTwo: row['nid_photo_two'] as String,
-            haveMedicalInsurance: (row['have_medical_insurance'] as int) != 0,
-            noOfChildren: row['no_of_children'] as int,
-            medicalInsuranceName: row['medical_insurance_name'] as String,
-            medicalInsuranceId: row['medical_insurance_id'] as String,
-            midPhotoOne: row['mid_photo_one'] as String,
-            midPhotoTwo: row['mid_photo_two'] as String,
-            ethnicity: row['ethnicity'] as String,
-            religion: row['religion'] as String,
-            occupation: row['occupation'] as String,
-            educationLevel: row['education_level'] as String,
-            meritalStatus: row['merital_status'] as String,
-            haveChildren: (row['have_children'] as int) != 0,
-            bloodGroup: row['blood_group'] as String,
-            email: row['email'] as String,
-            username: row['username'] as String,
-            phone: row['phone'] as String,
-            height: row['height'] as String,
-            weight: row['weight'] as String,
-            bmi: row['bmi'] as String,
-            alergies: row['alergies'] as String,
-            profilePhoto: row['profile_photo'] as String,
-            isFindable: (row['is_findable'] as int) != 0,
-            createdDate: row['created_date'] as String,
-            createdUid: row['created_uid'] as int,
-            updatedDate: row['updated_date'] as String,
-            updatedUid: row['updated_uid'] as int),
+            firstName: row['first_name'] as String?,
+            lastName: row['last_name'] as String?,
+            dateOfBirth: row['date_of_birth'] as String?,
+            countryOfBirth: row['country_of_birth'] as String?,
+            estimatedAge: row['estimated_age'] as String?,
+            gender: row['gender'] as String?,
+            status: row['status'] == null ? null : (row['status'] as int) != 0,
+            nationality: row['nationality'] as String?,
+            nationalId: row['national_id'] as String?,
+            nidPhotoOne: row['nid_photo_one'] as String?,
+            nidPhotoTwo: row['nid_photo_two'] as String?,
+            haveMedicalInsurance: row['have_medical_insurance'] == null
+                ? null
+                : (row['have_medical_insurance'] as int) != 0,
+            noOfChildren: row['no_of_children'] as int?,
+            medicalInsuranceName: row['medical_insurance_name'] as String?,
+            medicalInsuranceId: row['medical_insurance_id'] as String?,
+            midPhotoOne: row['mid_photo_one'] as String?,
+            midPhotoTwo: row['mid_photo_two'] as String?,
+            ethnicity: row['ethnicity'] as String?,
+            religion: row['religion'] as String?,
+            occupation: row['occupation'] as String?,
+            educationLevel: row['education_level'] as String?,
+            meritalStatus: row['merital_status'] as String?,
+            haveChildren: row['have_children'] == null
+                ? null
+                : (row['have_children'] as int) != 0,
+            bloodGroup: row['blood_group'] as String?,
+            email: row['email'] as String?,
+            username: row['username'] as String?,
+            phone: row['phone'] as String?,
+            height: row['height'] as String?,
+            weight: row['weight'] as String?,
+            bmi: row['bmi'] as String?,
+            alergies: row['alergies'] as String?,
+            profilePhoto: row['profile_photo'] as String?,
+            isFindable: row['is_findable'] == null
+                ? null
+                : (row['is_findable'] as int) != 0,
+            createdDate: row['created_date'] as String?,
+            createdUid: row['created_uid'] as int?,
+            updatedDate: row['updated_date'] as String?,
+            updatedUid: row['updated_uid'] as int?,
+            createdBy: row['createdBy'] as String?,
+            updatedBy: row['updatedBy'] as String?),
         arguments: [contactId]);
   }
 
@@ -3351,43 +3391,51 @@ class _$ContactsDao extends ContactsDao {
     return _queryAdapter.query('SELECT * FROM contacts WHERE id = ?1',
         mapper: (Map<String, Object?> row) => Contacts(
             id: row['id'] as int,
-            firstName: row['first_name'] as String,
-            lastName: row['last_name'] as String,
-            dateOfBirth: row['date_of_birth'] as String,
-            countryOfBirth: row['country_of_birth'] as String,
-            estimatedAge: row['estimated_age'] as String,
-            gender: row['gender'] as String,
-            status: (row['status'] as int) != 0,
-            nationality: row['nationality'] as String,
-            nationalId: row['national_id'] as String,
-            nidPhotoOne: row['nid_photo_one'] as String,
-            nidPhotoTwo: row['nid_photo_two'] as String,
-            haveMedicalInsurance: (row['have_medical_insurance'] as int) != 0,
-            noOfChildren: row['no_of_children'] as int,
-            medicalInsuranceName: row['medical_insurance_name'] as String,
-            medicalInsuranceId: row['medical_insurance_id'] as String,
-            midPhotoOne: row['mid_photo_one'] as String,
-            midPhotoTwo: row['mid_photo_two'] as String,
-            ethnicity: row['ethnicity'] as String,
-            religion: row['religion'] as String,
-            occupation: row['occupation'] as String,
-            educationLevel: row['education_level'] as String,
-            meritalStatus: row['merital_status'] as String,
-            haveChildren: (row['have_children'] as int) != 0,
-            bloodGroup: row['blood_group'] as String,
-            email: row['email'] as String,
-            username: row['username'] as String,
-            phone: row['phone'] as String,
-            height: row['height'] as String,
-            weight: row['weight'] as String,
-            bmi: row['bmi'] as String,
-            alergies: row['alergies'] as String,
-            profilePhoto: row['profile_photo'] as String,
-            isFindable: (row['is_findable'] as int) != 0,
-            createdDate: row['created_date'] as String,
-            createdUid: row['created_uid'] as int,
-            updatedDate: row['updated_date'] as String,
-            updatedUid: row['updated_uid'] as int),
+            firstName: row['first_name'] as String?,
+            lastName: row['last_name'] as String?,
+            dateOfBirth: row['date_of_birth'] as String?,
+            countryOfBirth: row['country_of_birth'] as String?,
+            estimatedAge: row['estimated_age'] as String?,
+            gender: row['gender'] as String?,
+            status: row['status'] == null ? null : (row['status'] as int) != 0,
+            nationality: row['nationality'] as String?,
+            nationalId: row['national_id'] as String?,
+            nidPhotoOne: row['nid_photo_one'] as String?,
+            nidPhotoTwo: row['nid_photo_two'] as String?,
+            haveMedicalInsurance: row['have_medical_insurance'] == null
+                ? null
+                : (row['have_medical_insurance'] as int) != 0,
+            noOfChildren: row['no_of_children'] as int?,
+            medicalInsuranceName: row['medical_insurance_name'] as String?,
+            medicalInsuranceId: row['medical_insurance_id'] as String?,
+            midPhotoOne: row['mid_photo_one'] as String?,
+            midPhotoTwo: row['mid_photo_two'] as String?,
+            ethnicity: row['ethnicity'] as String?,
+            religion: row['religion'] as String?,
+            occupation: row['occupation'] as String?,
+            educationLevel: row['education_level'] as String?,
+            meritalStatus: row['merital_status'] as String?,
+            haveChildren: row['have_children'] == null
+                ? null
+                : (row['have_children'] as int) != 0,
+            bloodGroup: row['blood_group'] as String?,
+            email: row['email'] as String?,
+            username: row['username'] as String?,
+            phone: row['phone'] as String?,
+            height: row['height'] as String?,
+            weight: row['weight'] as String?,
+            bmi: row['bmi'] as String?,
+            alergies: row['alergies'] as String?,
+            profilePhoto: row['profile_photo'] as String?,
+            isFindable: row['is_findable'] == null
+                ? null
+                : (row['is_findable'] as int) != 0,
+            createdDate: row['created_date'] as String?,
+            createdUid: row['created_uid'] as int?,
+            updatedDate: row['updated_date'] as String?,
+            updatedUid: row['updated_uid'] as int?,
+            createdBy: row['createdBy'] as String?,
+            updatedBy: row['updatedBy'] as String?),
         arguments: [contactId]);
   }
 
@@ -4744,20 +4792,20 @@ class _$ReveraDoctorsDao extends ReveraDoctorsDao {
             'revera_doctors',
             (ReveraDoctors item) => <String, Object?>{
                   'id': item.id,
-                  'digital_sign_image': item.digitalSignImage,
+                  'digitalSignImage': item.digitalSignImage,
                   'name': item.name,
                   'designation': item.designation,
                   'institution': item.institution,
                   'specialization': item.specialization,
                   'description': item.description,
-                  'status': item.status ? 1 : 0,
-                  'contact_id': item.contactId,
-                  'revera_id': item.reveraId,
-                  'profile_name': item.profileName,
-                  'created_date': item.createdDate,
-                  'created_by': item.createdBy,
-                  'updated_date': item.updatedDate,
-                  'updated_by': item.updatedBy
+                  'status': item.status == null ? null : (item.status! ? 1 : 0),
+                  'contactId': item.contactId,
+                  'reveraId': item.reveraId,
+                  'profileName': item.profileName,
+                  'createdDate': item.createdDate,
+                  'createdBy': item.createdBy,
+                  'updatedDate': item.updatedDate,
+                  'updatedBy': item.updatedBy
                 }),
         _reveraDoctorsUpdateAdapter = UpdateAdapter(
             database,
@@ -4765,20 +4813,20 @@ class _$ReveraDoctorsDao extends ReveraDoctorsDao {
             ['id'],
             (ReveraDoctors item) => <String, Object?>{
                   'id': item.id,
-                  'digital_sign_image': item.digitalSignImage,
+                  'digitalSignImage': item.digitalSignImage,
                   'name': item.name,
                   'designation': item.designation,
                   'institution': item.institution,
                   'specialization': item.specialization,
                   'description': item.description,
-                  'status': item.status ? 1 : 0,
-                  'contact_id': item.contactId,
-                  'revera_id': item.reveraId,
-                  'profile_name': item.profileName,
-                  'created_date': item.createdDate,
-                  'created_by': item.createdBy,
-                  'updated_date': item.updatedDate,
-                  'updated_by': item.updatedBy
+                  'status': item.status == null ? null : (item.status! ? 1 : 0),
+                  'contactId': item.contactId,
+                  'reveraId': item.reveraId,
+                  'profileName': item.profileName,
+                  'createdDate': item.createdDate,
+                  'createdBy': item.createdBy,
+                  'updatedDate': item.updatedDate,
+                  'updatedBy': item.updatedBy
                 }),
         _reveraDoctorsDeletionAdapter = DeletionAdapter(
             database,
@@ -4786,20 +4834,20 @@ class _$ReveraDoctorsDao extends ReveraDoctorsDao {
             ['id'],
             (ReveraDoctors item) => <String, Object?>{
                   'id': item.id,
-                  'digital_sign_image': item.digitalSignImage,
+                  'digitalSignImage': item.digitalSignImage,
                   'name': item.name,
                   'designation': item.designation,
                   'institution': item.institution,
                   'specialization': item.specialization,
                   'description': item.description,
-                  'status': item.status ? 1 : 0,
-                  'contact_id': item.contactId,
-                  'revera_id': item.reveraId,
-                  'profile_name': item.profileName,
-                  'created_date': item.createdDate,
-                  'created_by': item.createdBy,
-                  'updated_date': item.updatedDate,
-                  'updated_by': item.updatedBy
+                  'status': item.status == null ? null : (item.status! ? 1 : 0),
+                  'contactId': item.contactId,
+                  'reveraId': item.reveraId,
+                  'profileName': item.profileName,
+                  'createdDate': item.createdDate,
+                  'createdBy': item.createdBy,
+                  'updatedDate': item.updatedDate,
+                  'updatedBy': item.updatedBy
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -4819,20 +4867,20 @@ class _$ReveraDoctorsDao extends ReveraDoctorsDao {
     return _queryAdapter.query('SELECT * FROM revera_doctors WHERE id = ?1',
         mapper: (Map<String, Object?> row) => ReveraDoctors(
             id: row['id'] as int?,
-            digitalSignImage: row['digital_sign_image'] as String,
-            name: row['name'] as String,
-            designation: row['designation'] as String,
-            institution: row['institution'] as String,
-            specialization: row['specialization'] as String,
-            description: row['description'] as String,
-            status: (row['status'] as int) != 0,
-            contactId: row['contact_id'] as int,
-            reveraId: row['revera_id'] as String,
-            profileName: row['profile_name'] as String,
-            createdDate: row['created_date'] as String,
-            createdBy: row['created_by'] as String,
-            updatedDate: row['updated_date'] as String,
-            updatedBy: row['updated_by'] as String),
+            digitalSignImage: row['digitalSignImage'] as String?,
+            name: row['name'] as String?,
+            designation: row['designation'] as String?,
+            institution: row['institution'] as String?,
+            specialization: row['specialization'] as String?,
+            description: row['description'] as String?,
+            status: row['status'] == null ? null : (row['status'] as int) != 0,
+            contactId: row['contactId'] as int?,
+            reveraId: row['reveraId'] as String?,
+            profileName: row['profileName'] as String?,
+            createdDate: row['createdDate'] as String?,
+            createdBy: row['createdBy'] as String?,
+            updatedDate: row['updatedDate'] as String?,
+            updatedBy: row['updatedBy'] as String?),
         arguments: [id]);
   }
 
@@ -4850,20 +4898,20 @@ class _$ReveraDoctorsDao extends ReveraDoctorsDao {
         'SELECT * FROM revera_doctors WHERE contact_id = ?1',
         mapper: (Map<String, Object?> row) => ReveraDoctors(
             id: row['id'] as int?,
-            digitalSignImage: row['digital_sign_image'] as String,
-            name: row['name'] as String,
-            designation: row['designation'] as String,
-            institution: row['institution'] as String,
-            specialization: row['specialization'] as String,
-            description: row['description'] as String,
-            status: (row['status'] as int) != 0,
-            contactId: row['contact_id'] as int,
-            reveraId: row['revera_id'] as String,
-            profileName: row['profile_name'] as String,
-            createdDate: row['created_date'] as String,
-            createdBy: row['created_by'] as String,
-            updatedDate: row['updated_date'] as String,
-            updatedBy: row['updated_by'] as String),
+            digitalSignImage: row['digitalSignImage'] as String?,
+            name: row['name'] as String?,
+            designation: row['designation'] as String?,
+            institution: row['institution'] as String?,
+            specialization: row['specialization'] as String?,
+            description: row['description'] as String?,
+            status: row['status'] == null ? null : (row['status'] as int) != 0,
+            contactId: row['contactId'] as int?,
+            reveraId: row['reveraId'] as String?,
+            profileName: row['profileName'] as String?,
+            createdDate: row['createdDate'] as String?,
+            createdBy: row['createdBy'] as String?,
+            updatedDate: row['updatedDate'] as String?,
+            updatedBy: row['updatedBy'] as String?),
         arguments: [contactId]);
   }
 
@@ -5429,9 +5477,9 @@ class _$UsersDao extends UsersDao {
             termsAndConditionAccepted:
                 (row['terms_and_condition_accepted'] as int) != 0,
             createdDate: row['created_date'] as String,
-            createdUid: row['created_uid'] as int,
+            createdUid: row['created_uid'] as int?,
             updatedDate: row['updated_date'] as String,
-            updatedUid: row['updated_uid'] as int),
+            updatedUid: row['updated_uid'] as int?),
         arguments: [userId]);
   }
 

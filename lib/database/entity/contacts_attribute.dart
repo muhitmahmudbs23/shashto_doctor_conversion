@@ -1,35 +1,48 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:floor/floor.dart';
 
+part 'contacts_attribute.g.dart';
+
+@JsonSerializable()
 @Entity(tableName: 'contacts_attribute')
 class ContactsAttribute {
-  @primaryKey
-  @ColumnInfo(name: 'id')
+  @JsonKey(name: 'id')
+  @PrimaryKey()
   final int id;
 
+  @JsonKey(name: 'contact_id')
   @ColumnInfo(name: 'contact_id')
   final int contactId;
 
+  @JsonKey(name: 'title')
   @ColumnInfo(name: 'title')
   final String title;
 
+  @JsonKey(name: 'attribute_key')
   @ColumnInfo(name: 'attribute_key')
   final String attributeKey;
 
+  @JsonKey(name: 'attribute_value')
   @ColumnInfo(name: 'attribute_value')
   final String attributeValue;
 
+  @JsonKey(name: 'order_number')
   @ColumnInfo(name: 'order_number')
   final int orderNumber;
 
+  @JsonKey(name: 'created_date')
   @ColumnInfo(name: 'created_date')
   final String createdDate;
 
+  @JsonKey(name: 'created_uid')
   @ColumnInfo(name: 'created_uid')
   final int createdUid;
 
+  @JsonKey(name: 'updated_date')
   @ColumnInfo(name: 'updated_date')
   final String updatedDate;
 
+  @JsonKey(name: 'updated_uid')
   @ColumnInfo(name: 'updated_uid')
   final int updatedUid;
 
@@ -46,8 +59,9 @@ class ContactsAttribute {
     required this.updatedUid,
   });
 
-  @override
-  String toString() {
-    return 'ContactsAttribute{id: $id, contactId: $contactId, title: $title, attributeKey: $attributeKey, attributeValue: $attributeValue, orderNumber: $orderNumber, createdDate: $createdDate, createdUid: $createdUid, updatedDate: $updatedDate, updatedUid: $updatedUid}';
-  }
+  factory ContactsAttribute.fromJson(Map<String, dynamic> json) =>
+      _$ContactsAttributeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ContactsAttributeToJson(this);
 }
+

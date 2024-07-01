@@ -1,18 +1,22 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:floor/floor.dart';
 
 import '../entity/contacts.dart';
 
+part 'children.g.dart';
+
 @entity
+@JsonSerializable()
 class Children extends Contacts {
-  @ColumnInfo(name: 'relationship_type')
+  @JsonKey(name: 'relationship_type')
   String? relationshipType;
-  @ColumnInfo(name: 'is_linked_profile')
+  @JsonKey(name: 'is_linked_profile')
   bool? isLinkedProfile;
-  @ignore
+  @JsonKey(ignore: true)
   String? birthWeight;
-  @ignore
+  @JsonKey(ignore: true)
   String? typeOfDelivery;
-  @ignore
+  @JsonKey(ignore: true)
   bool isExpanded = false;
 
   Children({
@@ -60,4 +64,9 @@ class Children extends Contacts {
     required super.updatedDate,
     required super.updatedUid,
   });
+
+  factory Children.fromJson(Map<String, dynamic> json) =>
+      _$ChildrenFromJson(json);
+  Map<String, dynamic> toJson() => _$ChildrenToJson(this);
 }
+
